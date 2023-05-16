@@ -55,7 +55,7 @@ const SignInScreen = () => {
         <CustomButton
           text="Forgot password?"
           onPress={onForgotPassword}
-          type="secondary"
+          type="tertiary"
         />
 
         <SocialSignInButtons />
@@ -63,7 +63,7 @@ const SignInScreen = () => {
         <CustomButton
           text="Don't have an account? Create one"
           onPress={onCreateAccount}
-          type="secondary"
+          type="tertiary"
         />
       </View>
     </ScrollView>
