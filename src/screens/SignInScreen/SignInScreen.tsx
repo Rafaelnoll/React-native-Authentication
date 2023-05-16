@@ -9,6 +9,7 @@ import {
 import Logo from '../../../assets/images/logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
+import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
 
 const SignInScreen = () => {
   const [username, setUsername] = useState('');
@@ -22,18 +23,6 @@ const SignInScreen = () => {
 
   const onForgotPassword = () => {
     console.warn('OnForgotPassword');
-  };
-
-  const onSignInWithFacebook = () => {
-    console.warn('onSignInWithFacebook');
-  };
-
-  const onSignInWithGoogle = () => {
-    console.warn('onSignInWithGoogle');
-  };
-
-  const onSignInWithApple = () => {
-    console.warn('onSignInWithApple');
   };
 
   const onCreateAccount = () => {
@@ -69,25 +58,7 @@ const SignInScreen = () => {
           type="secondary"
         />
 
-        <CustomButton
-          text="Sign in with Facebook"
-          onPress={onSignInWithFacebook}
-          bgColor="#E7EAF4"
-          fgColor="#4765A9"
-        />
-        <CustomButton
-          text="Sign in with Google"
-          onPress={onSignInWithGoogle}
-          bgColor="#FAE9EA"
-          fgColor="#DD4D44"
-        />
-
-        <CustomButton
-          text="Sign in with Apple"
-          onPress={onSignInWithApple}
-          bgColor="#e3e3e3"
-          fgColor="#363636"
-        />
+        <SocialSignInButtons />
 
         <CustomButton
           text="Don't have an account? Create one"
