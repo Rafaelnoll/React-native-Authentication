@@ -68,7 +68,7 @@ const SignUpScreen = () => {
         <CustomButton
           text="Have an account? Sign in"
           onPress={onSignInPress}
-          type="secondary"
+          type="tertiary"
         />
       </View>
     </ScrollView>

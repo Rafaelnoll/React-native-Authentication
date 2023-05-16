@@ -4,7 +4,7 @@ import {Text, StyleSheet, Pressable} from 'react-native';
 interface CustomInputProps {
   text: string;
   onPress: () => void;
-  type?: 'primary' | 'secondary';
+  type?: 'primary' | 'secondary' | 'tertiary';
   bgColor?: string;
   fgColor?: string;
 }
@@ -49,7 +49,11 @@ const styles = StyleSheet.create({
   container_primary: {
     backgroundColor: '#3B71F3',
   },
-  container_secondary: {},
+  container_secondary: {
+    borderColor: '#3B71F3',
+    borderWidth: 2,
+  },
+  container_tertiary: {},
   text: {
     fontWeight: 'bold',
   },
@@ -57,6 +61,9 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   text_secondary: {
+    color: '#3B71F3',
+  },
+  text_tertiary: {
     color: 'gray',
   },
 });
