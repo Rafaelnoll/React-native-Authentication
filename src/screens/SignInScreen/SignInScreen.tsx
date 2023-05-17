@@ -46,13 +46,27 @@ const SignInScreen = () => {
           resizeMode="contain"
         />
 
-        <CustomInput placeholder="Email" control={control} name="email" />
+        <CustomInput
+          placeholder="Email"
+          control={control}
+          name="email"
+          rules={{
+            required: 'Email is required',
+          }}
+        />
 
         <CustomInput
           placeholder="Password"
           secureTextEntry
           control={control}
           name="password"
+          rules={{
+            required: 'Password is required',
+            minLength: {
+              value: 6,
+              message: 'The password should be minimun 6 characters long',
+            },
+          }}
         />
 
         <CustomButton text="Sign in" onPress={handleSubmit(onSignInPressed)} />
