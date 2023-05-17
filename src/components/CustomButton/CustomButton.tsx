@@ -7,6 +7,7 @@ interface CustomInputProps {
   type?: 'primary' | 'secondary' | 'tertiary';
   bgColor?: string;
   fgColor?: string;
+  loading?: boolean;
 }
 
 const CustomInput = ({
@@ -15,9 +16,11 @@ const CustomInput = ({
   type = 'primary',
   bgColor,
   fgColor,
+  loading = false,
 }: CustomInputProps) => {
   return (
     <Pressable
+      disabled={loading}
       onPress={onPress}
       style={[
         styles.container,
@@ -30,7 +33,7 @@ const CustomInput = ({
           styles[`text_${type}`],
           fgColor ? {color: fgColor} : {},
         ]}>
-        {text}
+        {loading ? 'Loading...' : text}
       </Text>
     </Pressable>
   );
