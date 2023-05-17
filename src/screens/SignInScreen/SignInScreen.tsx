@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
   StyleSheet,
   useWindowDimensions,
   ScrollView,
+  Alert,
 } from 'react-native';
 import Logo from '../../../assets/images/logo.png';
 import CustomInput from '../../components/CustomInput';
@@ -13,18 +14,35 @@ import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSign
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 import IUser from '../../interfaces/IUser';
+import auth from '@react-native-firebase/auth';
 
 const SignInScreen = () => {
+  const [loading, setLoading] = useState(false);
   const {height} = useWindowDimensions();
   const navigation = useNavigation();
 
   const {control, handleSubmit} = useForm<IUser>();
 
-  const onSignInPressed = (data: IUser) => {
-    console.log(data);
-    // validade user
+  const onSignInPressed = async (data: IUser) => {
+    if (loading) {
+      return;
+    }
 
-    navigation.navigate('Home' as never);
+    setLoading(true);
+
+    try {
+      const response = await auth().signInWithEmailAndPassword(
+        data.email,
+        data.password,
+      );
+      console.log(response);
+    } catch (error) {
+      Alert.alert('Oops', 'Email or password are wrong.');
+    }
+
+    setLoading(false);
+
+    //navigation.navigate('Home' as never);
   };
 
   const onForgotPassword = () => {
@@ -62,14 +80,14 @@ const SignInScreen = () => {
           name="password"
           rules={{
             required: 'Password is required',
-            minLength: {
-              value: 6,
-              message: 'The password should be minimun 6 characters long',
-            },
           }}
         />
 
-        <CustomButton text="Sign in" onPress={handleSubmit(onSignInPressed)} />
+        <CustomButton
+          text="Sign in"
+          loading={loading}
+          onPress={handleSubmit(onSignInPressed)}
+        />
 
         <CustomButton
           text="Forgot password?"

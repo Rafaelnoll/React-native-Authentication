@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, StyleSheet, Pressable} from 'react-native';
 
-interface CustomInputProps {
+interface CustomButtonProps {
   text: string;
   onPress: () => void;
   type?: 'primary' | 'secondary' | 'tertiary';
@@ -10,14 +10,14 @@ interface CustomInputProps {
   loading?: boolean;
 }
 
-const CustomInput = ({
+const CustomButton = ({
   onPress,
   text,
   type = 'primary',
   bgColor,
   fgColor,
   loading = false,
-}: CustomInputProps) => {
+}: CustomButtonProps) => {
   return (
     <Pressable
       disabled={loading}
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomInput;
+export default CustomButton;
