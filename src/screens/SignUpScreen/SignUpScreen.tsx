@@ -6,7 +6,6 @@ import SocialSignInButtons from '../../components/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/native';
 
 const SignUpScreen = () => {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmarion, setPasswordConfirmation] = useState('');
@@ -33,11 +32,6 @@ const SignUpScreen = () => {
       <View style={styles.root}>
         <Text style={styles.title}>Create an account</Text>
 
-        <CustomInput
-          placeholder="Username"
-          value={username}
-          setValue={setUsername}
-        />
         <CustomInput placeholder="Email" value={email} setValue={setEmail} />
         <CustomInput
           placeholder="Password"

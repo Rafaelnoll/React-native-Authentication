@@ -13,7 +13,7 @@ import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSign
 import {useNavigation} from '@react-navigation/native';
 
 const SignInScreen = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const {height} = useWindowDimensions();
@@ -45,11 +45,8 @@ const SignInScreen = () => {
           resizeMode="contain"
         />
 
-        <CustomInput
-          placeholder="Username"
-          value={username}
-          setValue={setUsername}
-        />
+        <CustomInput placeholder="Email" value={email} setValue={setEmail} />
+
         <CustomInput
           placeholder="Password"
           value={password}
