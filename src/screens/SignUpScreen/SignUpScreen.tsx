@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView, Text} from 'react-native';
+import {View, StyleSheet, ScrollView, Text, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 import ISignUpForm from '../../interfaces/ISignUpForm';
+import auth from '@react-native-firebase/auth';
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -15,9 +16,13 @@ const SignUpScreen = () => {
   const {control, handleSubmit, watch} = useForm<ISignUpForm>();
   const watchPassword = watch('password');
 
-  const onRegisterPressed = (data: ISignUpForm) => {
-    console.log(data);
-    navigation.navigate('ConfirmEmail' as never);
+  const onRegisterPressed = async (data: ISignUpForm) => {
+    try {
+      await auth().createUserWithEmailAndPassword(data.email, data.password);
+      navigation.navigate('ConfirmEmail' as never);
+    } catch (error) {
+      Alert.alert('Oops', 'Error creating account, please try again.');
+    }
   };
 
   const onSignInPress = () => {
