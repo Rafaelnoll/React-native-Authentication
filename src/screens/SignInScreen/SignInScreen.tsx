@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Image,
@@ -11,16 +11,17 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/native';
+import {useForm} from 'react-hook-form';
+import IUser from '../../interfaces/IUser';
 
 const SignInScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const {height} = useWindowDimensions();
   const navigation = useNavigation();
 
-  const onSignInPressed = () => {
-    console.warn('Sign In');
+  const {control, handleSubmit} = useForm<IUser>();
+
+  const onSignInPressed = (data: IUser) => {
+    console.log(data);
     // validade user
 
     navigation.navigate('Home' as never);
@@ -45,16 +46,16 @@ const SignInScreen = () => {
           resizeMode="contain"
         />
 
-        <CustomInput placeholder="Email" value={email} setValue={setEmail} />
+        <CustomInput placeholder="Email" control={control} name="email" />
 
         <CustomInput
           placeholder="Password"
-          value={password}
-          setValue={setPassword}
           secureTextEntry
+          control={control}
+          name="password"
         />
 
-        <CustomButton text="Sign in" onPress={onSignInPressed} />
+        <CustomButton text="Sign in" onPress={handleSubmit(onSignInPressed)} />
 
         <CustomButton
           text="Forgot password?"

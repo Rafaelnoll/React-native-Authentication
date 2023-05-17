@@ -1,27 +1,34 @@
-import React, {Dispatch, SetStateAction} from 'react';
+import React from 'react';
+import {Controller, Control} from 'react-hook-form';
 import {View, TextInput, StyleSheet} from 'react-native';
 
 interface CustomInputProps {
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  control: Control<any>;
+  name: string;
   placeholder: string;
   secureTextEntry?: boolean;
 }
 
 const CustomInput = ({
-  value,
-  setValue,
+  control,
+  name,
   placeholder,
   secureTextEntry = false,
 }: CustomInputProps) => {
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder={placeholder}
-        value={value}
-        onChangeText={setValue}
-        secureTextEntry={secureTextEntry}
+      <Controller
+        control={control}
+        name={name}
+        render={({field: {value, onChange, onBlur}}) => (
+          <TextInput
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            placeholder={placeholder}
+            secureTextEntry={secureTextEntry}
+          />
+        )}
       />
     </View>
   );
