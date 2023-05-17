@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, StyleSheet, ScrollView, Text} from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
+import {useForm} from 'react-hook-form';
+import INewPasswordForm from '../../interfaces/INewPasswordForm';
 
 const NewPasswordScreen = () => {
-  const [code, setCode] = useState('');
-  const [newPassword, setNewPassword] = useState('');
   const navigation = useNavigation();
+  const {control, handleSubmit} = useForm<INewPasswordForm>();
 
   const onSubmitPressed = () => {
     navigation.navigate('SignIn' as never);
@@ -24,17 +25,28 @@ const NewPasswordScreen = () => {
 
         <CustomInput
           placeholder="Enter your code"
-          value={code}
-          setValue={setCode}
+          name="code"
+          control={control}
+          rules={{
+            required: 'Code is required',
+          }}
         />
 
         <CustomInput
           placeholder="Enter your new password"
-          value={newPassword}
-          setValue={setNewPassword}
+          control={control}
+          name="new_password"
+          rules={{
+            required: 'Password is required',
+            minLength: {
+              value: 6,
+              message: 'Password should be at least 6 characters long',
+            },
+          }}
+          secureTextEntry
         />
 
-        <CustomButton text="Submit" onPress={onSubmitPressed} />
+        <CustomButton text="Submit" onPress={handleSubmit(onSubmitPressed)} />
 
         <CustomButton
           text="Back to Sign in"
