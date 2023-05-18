@@ -18,8 +18,18 @@ const SignUpScreen = () => {
 
   const onRegisterPressed = async (data: ISignUpForm) => {
     try {
-      await auth().createUserWithEmailAndPassword(data.email, data.password);
-      navigation.navigate('ConfirmEmail' as never);
+      const newUserCredential = await auth().createUserWithEmailAndPassword(
+        data.email,
+        data.password,
+      );
+      newUserCredential.user.sendEmailVerification();
+      navigation.navigate(
+        'SignIn' as never,
+        {
+          confirmation_email: data.email,
+          resendEmailVerification: newUserCredential.user.sendEmailVerification,
+        } as never,
+      );
     } catch (error) {
       Alert.alert('Oops', 'Error creating account, please try again.');
     }
