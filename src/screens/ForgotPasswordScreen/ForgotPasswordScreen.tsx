@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView, Text} from 'react-native';
+import {View, StyleSheet, ScrollView, Text, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
+import auth from '@react-native-firebase/auth';
 
 interface IForgotPasswordScreen {
   email: string;
@@ -13,8 +14,13 @@ const ForgotPasswordScreen = () => {
   const navigation = useNavigation();
   const {control, handleSubmit} = useForm<IForgotPasswordScreen>();
 
-  const onSendPressed = () => {
-    navigation.navigate('NewPassword' as never);
+  const onSendPressed = async (data: IForgotPasswordScreen) => {
+    try {
+      await auth().sendPasswordResetEmail(data.email);
+      navigation.navigate('SignIn' as never);
+    } catch (error) {
+      Alert.alert('Oops', 'Error sending email to reset password');
+    }
   };
 
   const onSignInPressed = () => {
