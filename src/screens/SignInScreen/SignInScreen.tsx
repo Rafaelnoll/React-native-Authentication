@@ -30,17 +30,12 @@ const SignInScreen = () => {
 
     setLoading(true);
     try {
-      const response = await auth().signInWithEmailAndPassword(
-        data.email,
-        data.password,
-      );
-      console.log(response);
+      await auth().signInWithEmailAndPassword(data.email, data.password);
+      navigation.navigate('Home' as never);
     } catch (error) {
       Alert.alert('Oops', 'Email or password are wrong.');
     }
     setLoading(false);
-
-    //navigation.navigate('Home' as never);
   };
 
   const onForgotPassword = () => {
