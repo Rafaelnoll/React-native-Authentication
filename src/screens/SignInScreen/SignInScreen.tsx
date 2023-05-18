@@ -6,11 +6,11 @@ import {
   useWindowDimensions,
   ScrollView,
   Alert,
+  Text,
 } from 'react-native';
 import Logo from '../../../assets/images/logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import SocialSignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 import IUser from '../../interfaces/IUser';
@@ -39,12 +39,10 @@ const SignInScreen = () => {
   };
 
   const onForgotPassword = () => {
-    console.warn('OnForgotPassword');
     navigation.navigate('ForgotPassword' as never);
   };
 
   const onCreateAccount = () => {
-    console.warn('onCreateAccount');
     navigation.navigate('SignUp' as never);
   };
 
@@ -75,20 +73,15 @@ const SignInScreen = () => {
             required: 'Password is required',
           }}
         />
+        <Text style={styles.forgotPassword} onPress={onForgotPassword}>
+          Forgot password?
+        </Text>
 
         <CustomButton
           text="Sign in"
           loading={loading}
           onPress={handleSubmit(onSignInPressed)}
         />
-
-        <CustomButton
-          text="Forgot password?"
-          onPress={onForgotPassword}
-          type="tertiary"
-        />
-
-        <SocialSignInButtons />
 
         <CustomButton
           text="Don't have an account? Create one"
@@ -106,9 +99,15 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   logo: {
-    width: '70%',
+    width: '100%',
     maxWidth: 300,
-    maxHeight: 200,
+    maxHeight: 300,
+  },
+  forgotPassword: {
+    alignSelf: 'flex-start',
+    marginBottom: 10,
+    fontSize: 14,
+    color: 'gray',
   },
 });
 

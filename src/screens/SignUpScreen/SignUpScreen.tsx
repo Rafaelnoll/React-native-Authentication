@@ -2,7 +2,6 @@ import React from 'react';
 import {View, StyleSheet, ScrollView, Text, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import SocialSignInButtons from '../../components/SocialSignInButtons';
 import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 import ISignUpForm from '../../interfaces/ISignUpForm';
@@ -94,8 +93,6 @@ const SignUpScreen = () => {
             Privacy Policy
           </Text>
         </Text>
-
-        <SocialSignInButtons />
 
         <CustomButton
           text="Have an account? Sign in"
