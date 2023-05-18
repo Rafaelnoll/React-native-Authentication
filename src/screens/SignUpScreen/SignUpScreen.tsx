@@ -23,13 +23,7 @@ const SignUpScreen = () => {
         data.password,
       );
       newUserCredential.user.sendEmailVerification();
-      navigation.navigate(
-        'SignIn' as never,
-        {
-          confirmation_email: data.email,
-          resendEmailVerification: newUserCredential.user.sendEmailVerification,
-        } as never,
-      );
+      navigation.navigate('SignIn' as never);
     } catch (error) {
       Alert.alert('Oops', 'Error creating account, please try again.');
     }
