@@ -22,7 +22,7 @@ const SignUpScreen = () => {
         data.password,
       );
       newUserCredential.user.sendEmailVerification();
-      navigation.navigate('SignIn' as never);
+      navigation.navigate('Home' as never);
     } catch (error) {
       Alert.alert('Oops', 'Error creating account, please try again.');
     }
