@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 import ISignUpForm from '../../interfaces/ISignUpForm';
 import auth from '@react-native-firebase/auth';
+import NativeFirebaseError from '../../interfaces/NativeFirebaseError';
 
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -29,7 +30,8 @@ const SignUpScreen = () => {
       );
       await newUserCredential.user.sendEmailVerification();
     } catch (error) {
-      Alert.alert('Oops', 'Error creating account, please try again.');
+      const typedError = error as NativeFirebaseError;
+      Alert.alert('Oops', typedError.userInfo.message);
     }
     setLoading(false);
   };
