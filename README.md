@@ -12,7 +12,7 @@ To run de project we need first to configure it with the firebase.
 
 <img src="./readme/imgs/image1.jpg" />
 
-* To register our android app we will need the package name of our project, to find the name go to the following folder ``./android/app/src/main/java/MainActivity.java`` where we will find the package name there on the top.
+* To register our android app we will need the package name of our project, to find the name go to the following folder ``./android/app/src/main/java/com/authentication/MainActivity.java`` where we will find the package name there on the top.
 
 <img src="./readme/imgs/image2.jpg" />
 
