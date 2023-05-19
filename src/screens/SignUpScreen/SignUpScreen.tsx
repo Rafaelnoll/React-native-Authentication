@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, ScrollView, Text, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
@@ -12,20 +12,26 @@ const EMAIL_REGEX =
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
   const {control, handleSubmit, watch} = useForm<ISignUpForm>();
   const watchPassword = watch('password');
 
   const onRegisterPressed = async (data: ISignUpForm) => {
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
     try {
       const newUserCredential = await auth().createUserWithEmailAndPassword(
         data.email,
         data.password,
       );
-      newUserCredential.user.sendEmailVerification();
-      navigation.navigate('Home' as never);
+      await newUserCredential.user.sendEmailVerification();
     } catch (error) {
       Alert.alert('Oops', 'Error creating account, please try again.');
     }
+    setLoading(false);
   };
 
   const onSignInPress = () => {
@@ -81,6 +87,7 @@ const SignUpScreen = () => {
         <CustomButton
           text="Register"
           onPress={handleSubmit(onRegisterPressed)}
+          loading={loading}
         />
 
         <Text style={styles.text}>

@@ -31,7 +31,6 @@ const SignInScreen = () => {
     setLoading(true);
     try {
       await auth().signInWithEmailAndPassword(data.email, data.password);
-      navigation.navigate('Home' as never);
     } catch (error) {
       Alert.alert('Oops', 'Email or password are wrong.');
     }
